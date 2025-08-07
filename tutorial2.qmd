@@ -115,7 +115,7 @@ ggplot(df1, aes(x = week_start, y = avg_price))+
 ```
 
 
-```{r}
+```{r echo=FALSE}
 # Example data
 # df <- data.frame(
 #   sale_time = c("2025-07-28 10:15", "2025-07-28 13:30",

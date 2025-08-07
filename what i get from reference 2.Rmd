@@ -1,0 +1,56 @@
+---
+title: "what i get from the reference 2"
+output: html_document
+date: "2025-08-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## how to calculate the dispersion of different variables
+
+
+
+```{r}
+```
+
+In the article, the professor uses the estate price of Bay Area Blues to 
+illustrate the effect of the housing crisis.
+
+But in my opinion, i think it is of great importance for us to get method to 
+investigate the diversion of the price.
+
+He use the price of different deciles of real estate in Bay area, like 10%, 20%,
+30%, ...,90%. use line plot to see its gaps 
+
+And he found that the biggest absolute decline in actual prices occurred at the
+expensive end.
+
+However, it is more appropriate to look at the relative prices: how have the 
+price change proportionately? 
+
+To do this, the author indexed each decile, dividing the each series by its 
+initial price, just as we did for CPI. 
+
+```{r}
+#insert the code and show the chart
+```
+
+Then the author get the conclusion that the cheapest estates drop the most in 
+the proportion.
+
+
+Another way to illustrate the dispersion is to represent a proportion of the
+median house price. 1.2 represents the 20% higher than median. 90% represents 
+10% lower than median.
+
+```{r}
+#insert the code and show the chart
+```
+
+
+
+## The website helping me categorize different types of variables 
+
+https://www.data-to-viz.com/
