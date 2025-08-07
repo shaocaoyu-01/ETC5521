@@ -18,6 +18,9 @@ This data is tidy form.
 
 ```{r}
 names(sales)
+str()
+glimpse()
+
 ```
 
 categorical variables: country, city, zip, street
@@ -95,16 +98,56 @@ ggplot(df, aes(x = category, y = value)) +
 
 ```
 
-```{r}
+```{r echo=false}
 library(ggplot2)
 
-df1 <- sales |>
+df1 <- sales |> mutate(avg_price = as.Date(date, format =" %Y-%m-%d")) |>
+  mutate(week_start = floor_date(date, unit = "week",week_start = 1))|>
+  group_by(week_start)|>
+  summarize(avg_price = mean(price,na.rm=TRUE),
+    .group="drop") |> arrange(week_start) 
 
-ggplot(sales, aes(x = year, y = price))+
+print(df1)
+
+ggplot(df1, aes(x = week_start, y = avg_price))+
   geom_line()+
   labs(y= "Average price(millions)")
+```
 
-ggplot(sales, aes(x= year, y = sales number))+
+
+```{r}
+# Example data
+# df <- data.frame(
+#   sale_time = c("2025-07-28 10:15", "2025-07-28 13:30",
+#                 "2025-07-29 09:00", "2025-08-03 17:45"),
+#   price     = c(100, 150, 200, 130)
+# )
+df2 <- sales %>%
+  # 1. parse your sale_time into a Date or POSIXct
+  #mutate(sale_time = ymd_hm(datesold)) %>%           # if “YYYY-MM-DD HH:MM”
+ mutate(sale_time = as.Date(date))|>     # if already “YYYY-MM-DD”
+
+  # 2. derive the time‐bucket you want:
+  #    a) daily:
+  #mutate(sale_date = as.Date(date)) %>%
+  #    b) weekly (Mon–Sun):
+  mutate(week_start = floor_date(date, "week", week_start = 1)) %>%
+  #    c) monthly:
+  #mutate(month     = floor_date(date, "month")) %>%
+
+  # 3. pick one (here week_start) and count
+  group_by(week_start) %>%
+  summarise(
+    sales_number = n(),        # total # of rows in each week
+    .groups = "drop"
+  ) %>%
+  arrange(week_start)
+
+# View the weekly sales counts
+print(df2)
+
+  
+ggplot(df2, aes(x= week_start, y = sales_number))+
   geom_line()+
   labs(y= "Number of sales")
 ```
